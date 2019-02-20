@@ -7,7 +7,7 @@ import java.util.function.Consumer;
 import com.lambdastudy.model.User;
 import com.lambdastudy.util.UserShower;
 
-public class Chapter2 {
+class Chapter2 {
 	public static void main(String args[]) {
 		User user1 = new User("Name of User1", 150);
 		User user2 = new User("Name of User2", 120);
