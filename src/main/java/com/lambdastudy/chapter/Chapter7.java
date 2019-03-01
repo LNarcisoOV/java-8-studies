@@ -59,7 +59,7 @@ class Chapter7 {
 	private static void example4() {
 		List<User> usersList = User.createUsersList();
 		usersList.stream().filter(u -> u.getScore() >= 150).forEach(User::transformUserInAModerator);
-		System.out.println("Transforming users with more or equals than 150 score in a moderator in example4:");
+		System.out.println("Transforming users with score bigger or equals than 150 in a moderator in example4:");
 		usersList.forEach(System.out::println);
 	}
 
@@ -67,7 +67,7 @@ class Chapter7 {
 		List<User> usersWithMoreThan140Scores = new ArrayList<User>();
 		List<User> usersList = User.createUsersList();
 		usersList.stream().filter(u -> u.getScore() > 140).forEach(usersWithMoreThan140Scores::add);
-		System.out.println("Adding users with more than 140 score in a new list in example5:");
+		System.out.println("Adding users score bigger than 140 in a new list in example5:");
 		usersWithMoreThan140Scores.forEach(System.out::println);
 	}
 
@@ -75,14 +75,14 @@ class Chapter7 {
 		List<User> usersList = User.createUsersList();
 		usersList = usersList.stream().filter(u -> u.getScore() > 130).collect(ArrayList::new, ArrayList::add,
 				ArrayList::addAll);
-		System.out.println("Collecting users with more than 130 score with COLLECT in example6:");
+		System.out.println("Collecting users score bigger than 130 score with COLLECT in example6:");
 		usersList.forEach(System.out::println);
 	}
 
 	private static void example7() {
 		List<User> usersList = User.createUsersList();
 		usersList = usersList.stream().filter(u -> u.getScore() > 140).collect(Collectors.toList());
-		System.out.println("Collecting users with more than 140 score with COLLECT in example7:");
+		System.out.println("Collecting users score bigger than 140 score with COLLECT in example7:");
 		usersList.forEach(System.out::println);
 	}
 

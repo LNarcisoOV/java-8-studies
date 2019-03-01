@@ -20,6 +20,12 @@ public class User {
 		this.name = name;
 		this.moderator = false;
 	}
+	
+	public User(String name, Integer score, boolean isModerator) {
+		this.score = score;
+		this.name = name;
+		this.moderator = isModerator;
+	}
 
 	public String getName() {
 		return name;
@@ -79,6 +85,38 @@ public class User {
 		usersList.add(user4);
 		usersList.add(user5);
 		usersList.add(user6);
+		return usersList;
+	}
+	
+	public static List<User> createUsersListWithRepeatedValues() {
+		User user1 = new User("Name of User1", 150);
+		User user2 = new User("Name of User2", 120);
+		User user3 = new User("Name of User3", 140);
+		User user4 = new User("Name of User4", 170);
+		
+		List<User> usersList = new ArrayList<User>();
+		usersList.add(user1);
+		usersList.add(user2);
+		usersList.add(user3);
+		usersList.add(user4);
+		
+		usersList.add(user1);
+		usersList.add(user1);
+		
+		return usersList;
+	}
+	
+	public static List<User> createUsersListWithOneModerator() {
+		User user1 = new User("Name of User1", 150, false);
+		User user2 = new User("Name of User2", 120, false);
+		User user3 = new User("Name of User3", 140, false);
+		User user4 = new User("Name of User4", 170, true);
+
+		List<User> usersList = new ArrayList<User>();
+		usersList.add(user1);
+		usersList.add(user2);
+		usersList.add(user3);
+		usersList.add(user4);
 		return usersList;
 	}
 	

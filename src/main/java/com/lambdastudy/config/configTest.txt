@@ -1,0 +1,1 @@
+Config file just for FILE interface test.
