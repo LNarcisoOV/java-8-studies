@@ -1,17 +1,17 @@
 package com.lambdastudy.model;
 
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Group {
-	private Set<User> usersSet = new HashSet<>();
+	private List<User> usersList = new ArrayList<>();
 	
 	public void add(User user){
-		usersSet.add(user);
+		usersList.add(user);
 	}
 	
-	public Set<User> getUsers(){
-		return  Collections.unmodifiableSet(this.usersSet);
+	public List<User> getUsers(){
+		return  Collections.unmodifiableList(this.usersList);
 	}
 }

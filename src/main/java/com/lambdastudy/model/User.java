@@ -120,6 +120,20 @@ public class User {
 		return usersList;
 	}
 	
+	public static List<User> createUsersListWithThreeModerators() {
+		User user1 = new User("Name of User1", 900, false);
+		User user2 = new User("Name of User2", 560, true);
+		User user3 = new User("Name of User3", 322, true);
+		User user4 = new User("Name of User4", 170, true);
+
+		List<User> usersList = new ArrayList<User>();
+		usersList.add(user1);
+		usersList.add(user2);
+		usersList.add(user3);
+		usersList.add(user4);
+		return usersList;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
