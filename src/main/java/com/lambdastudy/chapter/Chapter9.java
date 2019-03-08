@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 
 import com.lambdastudy.model.User;
 
-public class Chapter9 {
+class Chapter9 {
 	public static void main(String... args) {
 		example1();
 		System.out.println();
@@ -140,7 +140,7 @@ public class Chapter9 {
 		List<User> usersList = User.createUsersListWithThreeModerators();
 		Map<Boolean, List<User>> groupedUsers = usersList.stream()
 				.collect(Collectors.partitioningBy(User::isModerator));
-		System.out.println("Partioning users with Collectors.partitioningBy by isModerator() in example8: ");
+		System.out.println("Partitioning users with Collectors.partitioningBy by isModerator() in example8: ");
 		System.out.println(groupedUsers);
 	}
 
