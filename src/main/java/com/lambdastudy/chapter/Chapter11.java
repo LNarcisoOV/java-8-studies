@@ -87,23 +87,52 @@ class Chapter11 {
 	}
 
 	private static void example6() {
-		
+		Map<Customer, List<List<Product>>> customerToProductList = getAllPaymentsPopulated().stream().collect(Collectors
+				.groupingBy(Payment::getCustomer, Collectors.mapping(Payment::getProducts, Collectors.toList())));
+
+		System.out.println("Getting a Map of Customers and their respective products list in example6: ");
+		customerToProductList.entrySet().stream().sorted(Comparator.comparing(e -> e.getKey().getName()))
+				.forEach(System.out::println);
 	}
 
 	private static void example7() {
+		Map<Customer, List<List<Product>>> customerToProductList = getAllPaymentsPopulated().stream().collect(Collectors
+				.groupingBy(Payment::getCustomer, Collectors.mapping(Payment::getProducts, Collectors.toList())));
 
+		Map<Customer, List<Product>> customerToProductList2 = customerToProductList.entrySet().stream()
+				.collect(Collectors.toMap(Map.Entry::getKey,
+						e -> e.getValue().stream().flatMap(List::stream).collect(Collectors.toList())));
+
+		System.out.println("Getting a Map of Customers and their respective products list in example7: ");
+		customerToProductList2.entrySet().stream().forEach(System.out::println);
 	}
 
 	private static void example8() {
+		Map<Customer, BigDecimal> especialCustomer = getAllPaymentsPopulated().stream()
+				.collect(
+						Collectors.groupingBy(Payment::getCustomer,
+								Collectors.reducing(BigDecimal.ZERO, p -> p.getProducts().stream()
+										.map(Product::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add),
+										BigDecimal::add)));
 
+		System.out.println("Getting total value paid per customer example8: ");
+		especialCustomer.entrySet().stream().forEach(System.out::println);
 	}
 
 	private static void example9() {
+		Function<Payment, BigDecimal> paymentToTotal = p -> p.getProducts().stream().map(Product::getPrice)
+				.reduce(BigDecimal.ZERO, BigDecimal::add);
+
+		Map<Customer, BigDecimal> totalValuePerCustomer = getAllPaymentsPopulated().stream()
+				.collect(Collectors.groupingBy(Payment::getCustomer,
+						Collectors.reducing(BigDecimal.ZERO, paymentToTotal, BigDecimal::add)));
+
+		System.out.println("Getting total value paid per customer example9: ");
+		totalValuePerCustomer.entrySet().stream().forEach(System.out::println);
 
 	}
 
 	private static void example10() {
-
 	}
 
 	private static void example11() {
