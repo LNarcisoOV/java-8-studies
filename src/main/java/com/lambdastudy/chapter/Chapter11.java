@@ -3,6 +3,8 @@ package com.lambdastudy.chapter;
 import java.math.BigDecimal;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -14,6 +16,7 @@ import java.util.stream.Collectors;
 import com.lambdastudy.model.Customer;
 import com.lambdastudy.model.Payment;
 import com.lambdastudy.model.Product;
+import com.lambdastudy.model.Subscription;
 
 class Chapter11 {
 	public static void main(String args[]) {
@@ -42,10 +45,6 @@ class Chapter11 {
 		example12();
 		System.out.println();
 		example13();
-		System.out.println();
-		example14();
-		System.out.println();
-		example15();
 	}
 
 	private static void example1() {
@@ -129,30 +128,45 @@ class Chapter11 {
 
 		System.out.println("Getting total value paid per customer example9: ");
 		totalValuePerCustomer.entrySet().stream().forEach(System.out::println);
-
 	}
 
 	private static void example10() {
+		Map<YearMonth, List<Payment>> paymentsPerMonth = getAllPaymentsPopulated().stream()
+				.collect(Collectors.groupingBy(p -> YearMonth.from(p.getDate())));
+
+		System.out.println("Getting payments grouped by month and year in example10: ");
+		paymentsPerMonth.entrySet().stream().forEach(System.out::println);
 	}
 
 	private static void example11() {
+		Map<YearMonth, BigDecimal> paymentsPerMonth = getAllPaymentsPopulated().stream()
+				.collect(
+						Collectors.groupingBy(p -> YearMonth.from(p.getDate()),
+								Collectors.reducing(BigDecimal.ZERO, p -> p.getProducts().stream()
+										.map(Product::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add),
+										BigDecimal::add)));
 
+		System.out.println("Getting the payment's sum grouped by month and year in example11: ");
+		paymentsPerMonth.entrySet().stream().forEach(System.out::println);
 	}
 
 	private static void example12() {
+		Subscription subscription = getAllSubscriptionsPopulated().get(0);
+		long numberOfMonthsSubscripted = ChronoUnit.MONTHS.between(subscription.getBegin(),
+				subscription.getEnd().orElse(LocalDateTime.now()));
+		BigDecimal totalPaid = subscription.getMonthlyFee().multiply(new BigDecimal(numberOfMonthsSubscripted));
 
+		System.out.println("Getting the interval between subscription date and end date of subscription in example12: "
+				+ numberOfMonthsSubscripted);
+		System.out.println("Getting the amount paid in this interval of " + numberOfMonthsSubscripted
+				+ " months in example12: " + totalPaid);
 	}
 
 	private static void example13() {
-
-	}
-
-	private static void example14() {
-
-	}
-
-	private static void example15() {
-
+		BigDecimal totalOfAllSubscriptions = getAllSubscriptionsPopulated().stream().map(Subscription::getTotalPaid)
+				.reduce(BigDecimal.ZERO, BigDecimal::add);
+		System.out.println(
+				"Getting the sum of all payments of all subscription in example13: " + totalOfAllSubscriptions);
 	}
 
 	private static List<Payment> getAllPaymentsPopulated() {
@@ -178,5 +192,21 @@ class Chapter11 {
 		Payment payment5 = new Payment(Arrays.asList(beauty, amelie), yesterday, paulo);
 
 		return Arrays.asList(payment1, payment2, payment3, payment4, payment5);
+	}
+
+	private static List<Subscription> getAllSubscriptionsPopulated() {
+		Customer paulo = new Customer("Paulo Silveira");
+		Customer rodrigo = new Customer("Rodrigo Turini");
+		Customer adriano = new Customer("Adriano Almeida");
+
+		LocalDateTime today = LocalDateTime.now();
+		LocalDateTime yesterday = today.minusDays(1);
+
+		BigDecimal monthlyFee = new BigDecimal("99.90");
+		Subscription s1 = new Subscription(monthlyFee, yesterday.minusMonths(5), paulo);
+		Subscription s2 = new Subscription(monthlyFee, yesterday.minusMonths(8), today.minusMonths(1), rodrigo);
+		Subscription s3 = new Subscription(monthlyFee, yesterday.minusMonths(5), today.minusMonths(2), adriano);
+		List<Subscription> subscriptions = Arrays.asList(s1, s2, s3);
+		return subscriptions;
 	}
 }
