@@ -10,8 +10,6 @@ public class PersonalStudiesMain {
 	private static final List<Integer> INT_LIST = Arrays.asList(1,2,3,4,5,5,5,6,7,7,7,7,8,8,9,9);
 	
 	public static void main(String[] args) {
-		
-		
 		headerText();
 		
 		System.out.println();
@@ -21,7 +19,6 @@ public class PersonalStudiesMain {
 		skipExample();
 		limitExample();
 		distinctExample();
-		
 	}
 	
 
@@ -45,6 +42,7 @@ public class PersonalStudiesMain {
 		spaceBreaker();
 		System.out.println("DISTINCT()");
 		System.out.println();
+		System.out.println("distinct() method uses equals() and hashCode() methods.");
 		System.out.println("Int list using distinct() to avoid repeated values:");
 		INT_LIST.stream().distinct().forEach(System.out::print);
 	}
