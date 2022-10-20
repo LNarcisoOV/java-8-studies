@@ -7,7 +7,7 @@ public class PersonalStudiesMain {
 
 	private static final int SKIP_ITEMS_VALUE = 2;
 	private static final int LIMIT_ITEMS_VALUE = 4;
-	private static final List<Integer> INT_LIST = Arrays.asList(1,2,3,4,5,6,7,8,9);
+	private static final List<Integer> INT_LIST = Arrays.asList(1,2,3,4,5,5,5,6,7,7,7,7,8,8,9,9);
 	
 	public static void main(String[] args) {
 		
@@ -20,9 +20,11 @@ public class PersonalStudiesMain {
 		
 		skipExample();
 		limitExample();
+		distinctExample();
 		
 	}
 	
+
 	private static void skipExample() {
 		spaceBreaker();
 		System.out.println("SKIP()");
@@ -37,6 +39,14 @@ public class PersonalStudiesMain {
 		System.out.println();
 		System.out.println("Int list using limit() method to get the first " + LIMIT_ITEMS_VALUE + " of the list:");
 		INT_LIST.stream().limit(LIMIT_ITEMS_VALUE).forEach(System.out::print);
+	}
+	
+	private static void distinctExample() {
+		spaceBreaker();
+		System.out.println("DISTINCT()");
+		System.out.println();
+		System.out.println("Int list using distinct() to avoid repeated values:");
+		INT_LIST.stream().distinct().forEach(System.out::print);
 	}
 	
 	private static void headerText() {
