@@ -20,14 +20,24 @@ public class PersonalStudiesMain {
 		limitExample();
 		distinctExample();
 		filterExample();
+		mapExample();
 	}
 	
+
+	private static void mapExample() {
+		spaceBreaker();
+		System.out.println("MAP(e)");
+		System.out.println();
+		System.out.println("Int list using map(e) method to multiply numers:");
+		INT_LIST.stream().map(e -> e * 2).forEach(System.out::println);
+	}
+
 
 	private static void filterExample() {
 		spaceBreaker();
 		System.out.println("FILTER(e)");
 		System.out.println();
-		System.out.println("Int list using filter() method to avoid odd numbers:");
+		System.out.println("Int list using filter(e) method to avoid odd numbers:");
 		INT_LIST.stream().filter(e -> e % 2 == 0).forEach(System.out::print);
 	}
 
