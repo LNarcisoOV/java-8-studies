@@ -19,8 +19,18 @@ public class PersonalStudiesMain {
 		skipExample();
 		limitExample();
 		distinctExample();
+		filterExample();
 	}
 	
+
+	private static void filterExample() {
+		spaceBreaker();
+		System.out.println("FILTER(e)");
+		System.out.println();
+		System.out.println("Int list using filter() method to avoid odd numbers:");
+		INT_LIST.stream().filter(e -> e % 2 == 0).forEach(System.out::print);
+	}
+
 
 	private static void skipExample() {
 		spaceBreaker();
