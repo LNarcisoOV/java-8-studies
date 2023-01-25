@@ -3,6 +3,7 @@ package com.imperative;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class ImperativeMain {
@@ -13,7 +14,9 @@ public class ImperativeMain {
 
 		List<Person> females = new ArrayList<>();
 
-		females = people.stream().filter(person -> Gender.FEMALE.equals(person.getGender()))
+		Predicate<Person> predicateFemalePerson = person -> Gender.FEMALE.equals(person.getGender());
+		
+		females = people.stream().filter(predicateFemalePerson)
 				.collect(Collectors.toList());
 
 		females.forEach(System.out::println);
