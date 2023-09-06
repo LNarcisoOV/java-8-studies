@@ -30,6 +30,16 @@ public class CompletableFutureMain {
         leroyMerlin.getPriceAsync();
         ericeira.getPriceAsync();
         
+        System.out.println("Do something value: "+ doSomething());
+        
         System.out.println("Processing time Asynchronous: " + (System.currentTimeMillis() - start));
+    }
+    
+    private static int doSomething() {
+        int output = 0;
+        for(int i=0; i<1000000; i++) {
+            output++;
+        }
+        return output;
     }
 }
