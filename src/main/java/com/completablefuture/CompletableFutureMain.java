@@ -1,5 +1,7 @@
 package com.completablefuture;
 
+import java.util.concurrent.ExecutionException;
+
 public class CompletableFutureMain {
     public static void main(String[] args) {
         System.out.println("---------------- Processing Synchronous ----------------");
@@ -29,6 +31,26 @@ public class CompletableFutureMain {
         amazon.getPriceAsync();
         leroyMerlin.getPriceAsync();
         ericeira.getPriceAsync();
+        
+        System.out.println("Do something value: "+ doSomething());
+        
+        System.out.println("Processing time Asynchronous: " + (System.currentTimeMillis() - start));
+        
+        
+        System.out.println();
+        System.out.println("---------------- Processing Asynchronous With Exception----------------");
+        
+        
+        start = System.currentTimeMillis();
+        
+        try {
+            worten.getPriceAsyncWithException().get();
+            amazon.getPriceAsyncWithException().get();
+            leroyMerlin.getPriceAsyncWithException().get();
+            ericeira.getPriceAsyncWithException().get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        } 
         
         System.out.println("Do something value: "+ doSomething());
         

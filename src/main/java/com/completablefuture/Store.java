@@ -15,7 +15,27 @@ public class Store {
         CompletableFuture<Double> cfDouble = new CompletableFuture<>();
         
         new Thread (() -> {
-            cfDouble.complete(showPrice());
+            try {
+                cfDouble.complete(showPrice());
+            } catch(Exception e) {
+                cfDouble.completeExceptionally(e);
+            }
+            
+        }).start();
+        
+        return cfDouble;
+    }
+    
+    public Future<Double> getPriceAsyncWithException(){
+        CompletableFuture<Double> cfDouble = new CompletableFuture<>();
+        
+        new Thread (() -> {
+            try {
+                cfDouble.complete(showPriceWithException());
+            } catch(Exception e) {
+                cfDouble.completeExceptionally(e);
+            }
+            
         }).start();
         
         return cfDouble;
@@ -26,6 +46,11 @@ public class Store {
         double output = ThreadLocalRandom.current().nextDouble()*100;;
         System.out.println("Price value: " + output);
         return output;
+    }
+    
+    private double showPriceWithException() {
+        System.out.println(1/0);
+        return 1/0;
     }
     
     private static void delay() {
