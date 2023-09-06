@@ -1,6 +1,8 @@
 package com.completablefuture;
 
+import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 public class CompletableFutureMain {
     public static void main(String[] args) {
@@ -14,6 +16,29 @@ public class CompletableFutureMain {
         executeAsynchronous(worten, amazon, leroyMerlin, ericeira);
         executeAsynchronousWithException(worten, amazon, leroyMerlin, ericeira);
         executeAsynchronousSupplyAsync(worten, amazon, leroyMerlin, ericeira);
+        executeAsynchronousParallelStream(worten, amazon, leroyMerlin, ericeira);
+        
+    }
+
+    private static void executeAsynchronousParallelStream(Store worten, Store amazon,
+            Store leroyMerlin, Store ericeira) {
+        System.out.println("---------------- Processing Asynchronous Prallel Stream ----------------");
+        
+        long start = System.currentTimeMillis();
+        
+        List<Store> stores = List.of(worten, amazon, leroyMerlin, ericeira);
+        List<Double> prices = stores.stream().map(store -> store.getPrice()).collect(Collectors.toList());
+        
+        System.out.println("Processing time with stream: " + (System.currentTimeMillis() - start));
+        System.out.println(prices);
+        
+        start = System.currentTimeMillis();
+        
+        List<Double> pricesParallelStream = stores.parallelStream().map(store -> store.getPrice()).collect(Collectors.toList());
+        
+        System.out.println("Processing time with parallel stream: " + (System.currentTimeMillis() - start));
+        System.out.println(pricesParallelStream);
+        System.out.println();
     }
 
     private static void executeAsynchronousWithException(Store worten, Store amazon, Store leroyMerlin, Store ericeira) {
