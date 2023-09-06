@@ -25,6 +25,10 @@ public class Store {
         
         return cfDouble;
     }
+     
+    public Future<Double> getPriceSupplyAsync(){
+       return CompletableFuture.supplyAsync(this::showPrice);
+    }
     
     public Future<Double> getPriceAsyncWithException(){
         CompletableFuture<Double> cfDouble = new CompletableFuture<>();
@@ -43,7 +47,7 @@ public class Store {
     
     private double showPrice() {
         delay();
-        double output = ThreadLocalRandom.current().nextDouble()*100;;
+        double output = ThreadLocalRandom.current().nextDouble()*100;
         System.out.println("Price value: " + output);
         return output;
     }

@@ -13,6 +13,7 @@ public class CompletableFutureMain {
         executeSynchronous(worten, amazon, leroyMerlin, ericeira);
         executeAsynchronous(worten, amazon, leroyMerlin, ericeira);
         executeAsynchronousWithException(worten, amazon, leroyMerlin, ericeira);
+        executeAsynchronousSupplyAsync(worten, amazon, leroyMerlin, ericeira);
     }
 
     private static void executeAsynchronousWithException(Store worten, Store amazon, Store leroyMerlin, Store ericeira) {
@@ -30,8 +31,8 @@ public class CompletableFutureMain {
         } 
         
         System.out.println("Do something value: "+ doSomething());
-        
         System.out.println("Processing time Asynchronous: " + (System.currentTimeMillis() - start));
+        System.out.println();
     }
 
     private static void executeAsynchronous(Store worten, Store amazon, Store leroyMerlin, Store ericeira) {
@@ -45,10 +46,7 @@ public class CompletableFutureMain {
         ericeira.getPriceAsync();
         
         System.out.println("Do something value: "+ doSomething());
-        
         System.out.println("Processing time Asynchronous: " + (System.currentTimeMillis() - start));
-        
-        
         System.out.println();
     }
 
@@ -63,8 +61,21 @@ public class CompletableFutureMain {
         ericeira.getPrice();
         
         System.out.println("Processing time synchronous: " + (System.currentTimeMillis() - start));
+        System.out.println();
+    }
+    
+    private static void executeAsynchronousSupplyAsync(Store worten, Store amazon, Store leroyMerlin, Store ericeira) {
+        System.out.println("---------------- Processing Asynchronous Supply Asynchronous ----------------");
         
+        long start = System.currentTimeMillis();
         
+        worten.getPriceSupplyAsync();
+        amazon.getPriceSupplyAsync();
+        leroyMerlin.getPriceSupplyAsync();
+        ericeira.getPriceSupplyAsync();
+        
+        System.out.println("Do something value: "+ doSomething());
+        System.out.println("Processing time Asynchronous supply async: " + (System.currentTimeMillis() - start));
         System.out.println();
     }
     
