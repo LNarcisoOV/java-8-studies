@@ -14,9 +14,11 @@ public class OptionalMain {
 
         System.out.println(value);
         
-        value = hello.orElseThrow(IllegalArgumentException::new);
+        
+        hello.ifPresentOrElse(System.out::println, () -> System.out.println("WORLD IF PRESENT OR ELSE"));
+        
+        
 
-        
-        
+        value = hello.orElseThrow(IllegalArgumentException::new);
     }
 }
