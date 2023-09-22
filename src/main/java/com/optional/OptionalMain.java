@@ -11,8 +11,12 @@ public class OptionalMain {
         String value = hello.orElseGet(() -> {
            return "World"; 
         });
-        
+
         System.out.println(value);
+        
+        value = hello.orElseThrow(IllegalArgumentException::new);
+
+        
         
     }
 }
