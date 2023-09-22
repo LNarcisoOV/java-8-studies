@@ -1,6 +1,7 @@
 package com.completablefuture;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
@@ -16,11 +17,11 @@ public class CompletableFutureMain {
         executeAsynchronous(worten, amazon, leroyMerlin, ericeira);
         executeAsynchronousWithException(worten, amazon, leroyMerlin, ericeira);
         executeAsynchronousSupplyAsync(worten, amazon, leroyMerlin, ericeira);
-        executeAsynchronousParallelStream(worten, amazon, leroyMerlin, ericeira);
+        executeAsynchronousCompletableFutureAndParallelStream(worten, amazon, leroyMerlin, ericeira);
         
     }
 
-    private static void executeAsynchronousParallelStream(Store worten, Store amazon,
+    private static void executeAsynchronousCompletableFutureAndParallelStream(Store worten, Store amazon,
             Store leroyMerlin, Store ericeira) {
         System.out.println("---------------- Processing Asynchronous Prallel Stream ----------------");
         
@@ -32,12 +33,44 @@ public class CompletableFutureMain {
         System.out.println("Processing time with stream: " + (System.currentTimeMillis() - start));
         System.out.println(prices);
         
+        System.out.println();
+        System.out.println();
+        
         start = System.currentTimeMillis();
         
         List<Double> pricesParallelStream = stores.parallelStream().map(store -> store.getPrice()).collect(Collectors.toList());
         
         System.out.println("Processing time with parallel stream: " + (System.currentTimeMillis() - start));
         System.out.println(pricesParallelStream);
+        System.out.println();
+        System.out.println();
+        
+        
+        start = System.currentTimeMillis();
+        
+        List<CompletableFuture<Double>> pricesStreamCompletableFuture = stores
+                .stream()
+                .map(store -> CompletableFuture.supplyAsync(() -> store.getPrice()))
+                .collect(Collectors.toList());
+                
+
+        System.out.println("Processing time with STREAM and COMPLETABLE FUTURE: " + (System.currentTimeMillis() - start));
+        System.out.println(pricesStreamCompletableFuture);
+        System.out.println();
+        System.out.println();
+        
+        start = System.currentTimeMillis();
+        
+        List<CompletableFuture<Double>> pricesStreamListCompletableFuture = stores
+                .stream()
+                .map(store -> CompletableFuture.supplyAsync(() -> store.getPrice()))
+                .collect(Collectors.toList());
+                
+        pricesStreamListCompletableFuture.stream().map(CompletableFuture::join).collect(Collectors.toList());
+
+        System.out.println("Processing time with completable future 2 streams: " + (System.currentTimeMillis() - start));
+        System.out.println(pricesStreamListCompletableFuture);
+        System.out.println();
         System.out.println();
     }
 
@@ -58,6 +91,7 @@ public class CompletableFutureMain {
         System.out.println("Do something value: "+ doSomething());
         System.out.println("Processing time Asynchronous: " + (System.currentTimeMillis() - start));
         System.out.println();
+        System.out.println();
     }
 
     private static void executeAsynchronous(Store worten, Store amazon, Store leroyMerlin, Store ericeira) {
@@ -73,6 +107,7 @@ public class CompletableFutureMain {
         System.out.println("Do something value: "+ doSomething());
         System.out.println("Processing time Asynchronous: " + (System.currentTimeMillis() - start));
         System.out.println();
+        System.out.println();
     }
 
     private static void executeSynchronous(Store worten, Store amazon, Store leroyMerlin, Store ericeira) {
@@ -86,6 +121,7 @@ public class CompletableFutureMain {
         ericeira.getPrice();
         
         System.out.println("Processing time synchronous: " + (System.currentTimeMillis() - start));
+        System.out.println();
         System.out.println();
     }
     
@@ -101,6 +137,7 @@ public class CompletableFutureMain {
         
         System.out.println("Do something value: "+ doSomething());
         System.out.println("Processing time Asynchronous supply async: " + (System.currentTimeMillis() - start));
+        System.out.println();
         System.out.println();
     }
     
