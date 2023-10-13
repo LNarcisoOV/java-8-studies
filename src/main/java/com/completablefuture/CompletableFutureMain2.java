@@ -24,7 +24,10 @@ public class CompletableFutureMain2 {
         
         CompletableFuture<Integer> cf1 = createCompletableFutureInt(2);
         CompletableFuture<Integer> cf2 = createCompletableFutureInt(6);
-        cf1.thenCombine(cf2, (r1, r2) -> r1 + r2).thenAccept(System.out::println);
+        cf1.thenCombine(cf2, (r1, r2) -> r1 + r2)
+        .thenAccept(sumOfValues -> {
+            System.out.println(sumOfValues);
+        });
         
     }
     
