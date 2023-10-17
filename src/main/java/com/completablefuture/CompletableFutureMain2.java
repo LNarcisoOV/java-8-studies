@@ -4,8 +4,6 @@ import java.util.concurrent.CompletableFuture;
 
 public class CompletableFutureMain2 {
     
-    
-    
     public static void main(String... a) throws InterruptedException {
         System.out.println("Start");
         
