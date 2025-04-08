@@ -24,7 +24,11 @@ public class StreamMain {
        OptionalDouble optDouble = 
                DoubleStream.of(1.1, 6.5, 8.8, 0.3, 3.3).reduce((n1, n2) -> Math.min(n1, n2));
        
-       System.out.println(optDouble);
+       System.out.println(optDouble); 
+
+       String concat = List.of("abc" + "def" + "ghi").stream().reduce(String::concat).get();
+
+        System.out.println(concat);
 
     }
 
